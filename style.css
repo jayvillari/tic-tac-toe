@@ -1,0 +1,95 @@
+h1 {
+    color:whitesmoke;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48pt;
+    letter-spacing: 0.20em;
+    padding-left:20px;
+    animation: fadein 5s;
+    -moz-animation: fadein 5s; /* Firefox */
+    -webkit-animation: fadein 5s; /* Safari and Chrome */
+    -o-animation: fadein 5s; /* Opera */
+}
+body {
+    background-image: url("img/nasa_img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   }
+
+table {
+    width: 42%;
+    border-collapse: collapse;
+  }
+  
+  td {
+    width: 30%;
+    border: 1px solid whitesmoke;
+  }
+  
+  /* Creates element with empty content after td to create even height and width */
+  td::after {
+    content: "";
+    display: block;
+    margin-top: 100%;
+  }
+  
+  /* Creates first column of board with open sides */
+  td:first-of-type {
+    border-left-color: transparent;
+    border-top-color: transparent;
+  }
+  
+  /* Creates open top of center top box */
+  td:nth-of-type(2) {
+    border-top-color: transparent;
+  }
+  
+  /* Creates last column of board with open sides */
+  td:nth-of-type(3) {
+    border-right-color: transparent;
+    border-top-color: transparent;
+  }
+
+  /* Creates open bottom of board */
+  tr:nth-of-type(3) td {
+    border-bottom-color: transparent;
+  }
+  
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
