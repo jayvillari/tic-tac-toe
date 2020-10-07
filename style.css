@@ -2,8 +2,8 @@ h1 {
     color:whitesmoke;
     font-family: 'Montserrat', sans-serif;
     font-size: 48pt;
-    letter-spacing: 0.20em;
-    padding-left:20px;
+    letter-spacing: 0.32em;
+    padding-left:45px;
     animation: fadein 5s;
     -moz-animation: fadein 5s; /* Firefox */
     -webkit-animation: fadein 5s; /* Safari and Chrome */
@@ -13,9 +13,9 @@ body {
     background-image: url("img/nasa_img.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 700px;
-    padding: 0;
-    margin: 0;
+    height: 100%;
+    padding: 2px;
+    margin: 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,19 +23,28 @@ body {
    }
 
 table {
-    width: 42%;
+    width: 40%;
+    table-layout:fixed;
+    text-align:center;
     border-collapse: collapse;
   }
   
+tr {
+    height:160px;
+}
+
   td {
     width: 30%;
+    color: whitesmoke;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60pt;
     border: 1px solid whitesmoke;
   }
   
   /* Creates element with empty content after td to create even height and width */
   td::after {
     content: "";
-    display: block;
+    display: flexbox;
     margin-top: 100%;
   }
   
