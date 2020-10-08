@@ -18,6 +18,8 @@ for (let i = 1; i < 10; i++)
                 if (didPlayerWin(playerOBoxes) == true)
                 {
                     narrationBox.innerHTML = "Team O won!";
+                    message.innerHTML = "Team O won! Play again?";
+                    modal.style.display = "block";
                     resetGame();
                 }
                 narrationBox.innerHTML = "Current Turn: X";
@@ -30,11 +32,19 @@ for (let i = 1; i < 10; i++)
                 if (didPlayerWin(playerXBoxes) == true)
                 {
                     narrationBox.innerHTML = "Team X won!";
+                    message.innerHTML = "Team X won! Play again?";
+                    modal.style.display = "block";
                     resetGame();
                 }
                 narrationBox.innerHTML = "Current Turn: O";
             }  
             turnNumber++;
+
+            if (turnNumber > 10)
+            {
+                modal.style.display = "block";
+                resetGame();
+            }
         }      
     })
 }
@@ -75,4 +85,19 @@ function resetGame()
     {
         document.querySelector(`#box-${i}`).innerHTML = "";
     }
+}
+
+
+let modal = document.querySelector(".modal");
+let message = document.querySelector("#winning-msg");
+let span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
