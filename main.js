@@ -5,11 +5,20 @@ let turnNumber = 1;
 let playerOBoxes = [];
 let playerXBoxes = [];
 
+let modal = document.querySelector(".modal");
+let message = document.querySelector("#winning-msg");
+let span = document.getElementsByClassName("close")[0];
+
+let btnPlayAgainYes =  document.querySelector("#btn-yes");
+let btnPlayAgainNo =  document.querySelector("#btn-no");
+let newGame =  document.querySelector("#new-game");
+let isGameOver = false;
+
 for (let i = 1; i < 10; i++)
 {
     let selectedBox =  document.querySelector(`#box-${i}`);
     selectedBox.addEventListener("click", () => {
-        if (isBoxOpen(selectedBox))
+        if (isBoxOpen(selectedBox) && !(isGameOver))
         {
             if (turnNumber % 2 === 0)
             {
@@ -17,10 +26,9 @@ for (let i = 1; i < 10; i++)
                 playerOBoxes.push(i);
                 if (didPlayerWin(playerOBoxes) == true)
                 {
-                    narrationBox.innerHTML = "Team O won!";
-                    message.innerHTML = "Team O won! Play again?";
+                    message.innerHTML = "Team O won! <br> Play again?";
                     modal.style.display = "block";
-                    resetGame();
+                    isGameOver = true;
                 }
                 narrationBox.innerHTML = "Current Turn: X";
             }                
@@ -31,19 +39,19 @@ for (let i = 1; i < 10; i++)
 
                 if (didPlayerWin(playerXBoxes) == true)
                 {
-                    narrationBox.innerHTML = "Team X won!";
-                    message.innerHTML = "Team X won! Play again?";
+                    message.innerHTML = "Team X won! <br> Play again?";
                     modal.style.display = "block";
-                    resetGame();
+                    isGameOver = true;
                 }
                 narrationBox.innerHTML = "Current Turn: O";
-            }  
+            }           
+
             turnNumber++;
 
-            if (turnNumber > 10)
+            if (turnNumber === 10 && !(isGameOver))
             {
+                message.innerHTML = "It's a draw! <br> Play again?";
                 modal.style.display = "block";
-                resetGame();
             }
         }      
     })
@@ -85,12 +93,9 @@ function resetGame()
     {
         document.querySelector(`#box-${i}`).innerHTML = "";
     }
+
+    isGameOver = false;
 }
-
-
-let modal = document.querySelector(".modal");
-let message = document.querySelector("#winning-msg");
-let span = document.getElementsByClassName("close")[0];
 
 span.onclick = function() {
   modal.style.display = "none";
@@ -101,3 +106,17 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+btnPlayAgainYes.addEventListener("click", () => {
+    resetGame();
+    modal.style.display = "none";
+})
+
+btnPlayAgainNo.addEventListener("click", () => {
+    isGameOver = true;
+    modal.style.display = "none";
+})
+
+newGame.addEventListener("click", () => {
+    resetGame();
+})
