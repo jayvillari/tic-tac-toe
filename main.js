@@ -14,6 +14,9 @@ let btnPlayAgainNo =  document.querySelector("#btn-no");
 let newGame =  document.querySelector("#new-game");
 let isGameOver = false;
 
+let isOpponentComputer = true;
+let isComputersMove = false;
+
 for (let i = 1; i < 10; i++)
 {
     let selectedBox =  document.querySelector(`#box-${i}`);
@@ -31,6 +34,9 @@ for (let i = 1; i < 10; i++)
                     isGameOver = true;
                 }
                 narrationBox.innerHTML = "Current Turn: X";
+
+                if (isOpponentComputer)
+                    isComputersMove = false;
             }                
             else
             {
@@ -44,6 +50,9 @@ for (let i = 1; i < 10; i++)
                     isGameOver = true;
                 }
                 narrationBox.innerHTML = "Current Turn: O";
+                
+                if (isOpponentComputer)
+                    isComputersMove = true;
             }           
 
             turnNumber++;
@@ -52,6 +61,24 @@ for (let i = 1; i < 10; i++)
             {
                 message.innerHTML = "It's a draw! <br> Play again?";
                 modal.style.display = "block";
+            }
+
+            if (isComputersMove)
+            {
+                /* returns all possible winning configurations that are still open to the computer */
+                let possibleWins = winConfigurations.filter(function(winConfiguration){
+                    if (!playerXBoxes.some(r=> winConfiguration.includes(r)))
+                    {
+                        return winConfiguration;
+                    }
+                })
+
+                let computerChoice = calculateNextMove(possibleWins);
+                if (computerChoice !== 0)
+                {
+                    setTimeout(function(){ document.querySelector(`#box-${computerChoice}`).click(); }, 500);  
+                }
+                            
             }
         }      
     })
@@ -94,6 +121,7 @@ function resetGame()
         document.querySelector(`#box-${i}`).innerHTML = "";
     }
 
+    narrationBox.innerHTML = "Current Turn: X";
     isGameOver = false;
 }
 
@@ -120,3 +148,58 @@ btnPlayAgainNo.addEventListener("click", () => {
 newGame.addEventListener("click", () => {
     resetGame();
 })
+
+function calculateNextMove(possibleWinConfigurations)
+{
+    let nextMove = 0;
+
+    /* computer plays offensively */
+    if (playerXBoxes.length === 1)
+    {
+        possibleWinConfigurations.forEach(possibleWin => {
+            possibleWin.forEach(element => {
+                if (isBoxOpen(document.querySelector(`#box-${element}`)) && nextMove === 0)
+                    nextMove = element;
+            })
+        })
+    }
+    else /* computer plays defensively unless there is no imminent win */
+    {
+        let winPositions = 0;
+
+        winConfigurations.forEach(array => 
+        {
+            let tempArray = array.slice();
+            for (let i = 0; i < 3; i++)
+            {
+                if (playerXBoxes.indexOf(array[i]) !== -1) /* if player X has marked that spot */
+                {
+                    winPositions = winPositions + 1;
+                    let index = tempArray.indexOf(array[i]);
+                    tempArray.splice(index, 1); 
+                }
+            } 
+
+            if (winPositions === 2 && playerOBoxes.indexOf(tempArray[0]) == -1)
+            {
+                nextMove = tempArray[0];
+            }    
+            winPositions = 0;
+        })
+    }
+
+    /* if no clear advantage for a position is found choose available open position */
+    if (nextMove === 0 || !isBoxOpen(document.querySelector(`#box-${nextMove}`)))
+    {  
+        for (let i = 0; i < 10; i++)
+        {
+            if (playerXBoxes.indexOf(i) === -1 && playerOBoxes.indexOf(i) === -1)
+            {
+                nextMove = i;
+            }
+
+        }
+    }
+        
+    return nextMove;
+}
