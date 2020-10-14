@@ -103,7 +103,7 @@ for (let i = 1; i < 10; i++)
                 modal.style.display = "block";
             }
 
-            if (isComputersMove) /* Check if it is the Computer's move */  
+            if (isOpponentComputer && isComputersMove) /* Check if opponent is Computer and if it is the Computer's move */  
             {
                 /* returns all possible winning configurations that are still open to the computer */
                 let possibleWins = winConfigurations.filter(function(winConfiguration){
@@ -170,6 +170,7 @@ function resetGame()
 
     narrationBox.innerHTML = "Current Turn: X";
     isGameOver = false;
+    isOpponentComputer = false;
     welcomeModal.style.display = "block";
 }
 
