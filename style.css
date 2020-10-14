@@ -1,3 +1,10 @@
+/*
+//////////////////////////////////////////
+//  Creates styles for TIC TAC TOE Game
+//////////////////////////////////////////
+*/
+
+/* For TIC TAC TOE Header */
 h1 {
     color:whitesmoke;
     font-family: 'Montserrat', sans-serif;
@@ -5,6 +12,8 @@ h1 {
     letter-spacing: 0.32em;
     padding-left:45px;
 }
+
+/* Add background, fade, and create flex box */
 body {
     background-image: url("img/nasa_img.jpg");
     background-repeat: no-repeat;
@@ -22,6 +31,7 @@ body {
     -o-animation: fadein 5s; /* Opera */
 }
 
+/* Add style to smaller headers */
 h3 {
     color:whitesmoke;
     background-color: rgba(0, 0, 0, 0.3);
@@ -34,6 +44,7 @@ h3 {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Creates TIC TAC TOE board */
 table {
     width: 40%;
     table-layout:fixed;
@@ -82,7 +93,8 @@ tr:nth-of-type(3) td {
     border-bottom-color: transparent;
 }
 
-.modal {
+/* Style modal pop-up */
+.modal, .welcome-modal {
     display: none; 
     position: fixed; 
     z-index: 1; 
@@ -120,6 +132,7 @@ tr:nth-of-type(3) td {
     cursor: pointer;
 }
 
+/* Style buttons in modal pop ups */
 #btn-yes, #btn-no {
     color: white;
     font-family: 'Oswald', sans-serif;
@@ -136,6 +149,16 @@ tr:nth-of-type(3) td {
     background-color: red;
 }
 
+#btn-friend, #btn-cpu {
+    color: whitesmoke;
+    background-color: rgba(26, 103, 186, 0.7);
+    font-family: 'Oswald', sans-serif;
+    font-size: 26pt;
+    width: 200px;
+    border-radius: 15px 50px;
+}
+
+
 #new-game {
     text-align: center;
     font-size: 22pt;
@@ -145,7 +168,9 @@ tr:nth-of-type(3) td {
     font-family: 'Montserrat';
     cursor: pointer;
 }
-  
+
+/* Creates the frames for fading in for each 
+of the browsers */
 @keyframes fadein {
     from {
         opacity:0;
