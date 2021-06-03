@@ -1,5 +1,8 @@
 # TIC TAC TOE GAME 
 ---
+## Tic-tac-toe implementation that allows users to play against a friend or an optional AI opponent
+
+---
 ## Technologies and Resources used
 
 - CSS, HTML and JavaScript
